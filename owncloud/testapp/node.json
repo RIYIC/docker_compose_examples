@@ -1,0 +1,28 @@
+{
+  "app": {
+    "owncloud": {
+        "domain": "test.riyic.com",
+        "version": "8.1.2",
+        "adminlogin":"admin",
+        "adminpass": "ljLmNvbSIsCiAgIC3",
+        "alias": [],
+        "smtp_server":"",
+        "smtp_user":"",
+        "smtp_password": "",
+        "environment": "production",
+        "target_path": "/home/owncloud/",
+        "data_dir": "/opt/owncloud_data",
+        "user": "owncloud",
+        "group": "owngrp",
+        "dbtype": "sqlite",
+        "dbname": "owncloud",
+        "dbuser": "",
+        "dbhost": "db.local",
+        "dbpassword": ""
+    }  
+  }, 
+  "run_list":[
+            "recipe[riyic::default]",
+            "recipe[app_owncloud::deploy]"
+ ]
+}

@@ -1,0 +1,10 @@
+appdata:
+  build: ./app
+  #command: tail -f /dev/null
+  #volumes: 
+  #  - /opt/aaa
+app:
+  image: composebug_appdata
+  command: tail -f /dev/null
+  volumes_from:
+    - appdata

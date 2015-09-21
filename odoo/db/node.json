@@ -1,0 +1,32 @@
+{
+  "dbs": {
+    "postgresql": {
+      "server": {
+        "postgres_password": "bcA3345u90edw",
+        "allow_remote_connections": "yes"
+      },
+      "dbs": [
+        {
+          "name": "odoo_db",
+          "user": "odoo_user",
+          "password": "b4asdasfuNGag"
+        }
+      ],
+      "user_extra_options": [
+        {
+          "user": "odoo_user",
+          "extra_privileges": [
+            "CREATEDB"
+          ],
+          "allow_remote_connections": "yes"
+        }
+      ]
+    }
+  },
+  "run_list":[
+    "recipe[riyic::default]",
+    "recipe[dbs_postgresql::server]",
+    "recipe[dbs_postgresql::create_db]",
+    "recipe[dbs_postgresql::user_extra_privileges]"
+  ]
+}

@@ -1,0 +1,27 @@
+dbdata:
+  build: ./db
+  command: echo "hola"
+
+db:
+  image: odoo_dbdata
+  command: sh -c "chown -R postgres:postgres /var/lib/postgresql/9.3/main && /root/start.sh"
+  volumes_from: 
+    - dbdata
+  expose:
+    - "5432"
+
+appdata:
+  image: busybox
+  volumes: 
+    - /opt/odoo/data
+
+app:
+  build: ./app
+  command: sh -c "chown -R odoo:odoogrp /opt/odoo/data && /root/start.sh"
+  environment: {}
+  links: 
+    - db
+  ports:
+    - "80:80"
+  volumes_from:
+    - appdata

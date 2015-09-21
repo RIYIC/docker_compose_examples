@@ -1,0 +1,18 @@
+testappdata:
+  image: busybox
+  environment: {}
+  links: []
+  ports: []
+  volumes: 
+    - /opt/owncloud_data
+  volumes_from: []
+testapp:
+  build: ./testapp
+  command: sh -c "chown owncloud:owngrp /opt/owncloud_data && /root/start.sh"
+  environment: {}
+  links: []
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes_from:
+    - testappdata
