@@ -1,0 +1,21 @@
+dbdata:
+  build: ./db
+  #command: echo "hola"
+
+db:
+  image: redmine_dbdata
+  command: sh -c "/root/start.sh"
+  volumes_from: 
+    - dbdata
+  expose:
+    - "3306"
+
+app:
+  build: ./app
+  command: sh -c "/root/start.sh"
+  links: 
+    - db:db.local
+  ports:
+    - "80:80"
+  volumes_from:
+    - appdata

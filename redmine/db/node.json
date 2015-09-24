@@ -1,0 +1,42 @@
+{
+  "riyic": {
+    "updates_check_interval": "never",
+    "system_locale": "en_US.UTF-8",
+    "env": "production"
+  },
+  "dbs": {
+    "mysql": {
+      "server": {
+        "root_password": "BAQzuPpmp6Q1WHkJrmiEGA",
+        "repl_password": "YT83jj2yMHWJOP5Udffbsw",
+        "debian_password": "LrMw18BAJ6aHbkS9X-Zx4w",
+        "bind_address": "0.0.0.0"
+      },
+      "tunable": {
+        "key_buffer": "250M",
+        "max_connections": "500",
+        "wait_timeout": "180",
+        "net_read_timeout": "30",
+        "net_write_timeout": "30",
+        "back_log": "128",
+        "table_cache": "128",
+        "table_open_cache": "128",
+        "max_heap_table_size": "32M",
+        "expire_logs_days": "10",
+        "max_binlog_size": "100M"
+      },
+      "dbs": [
+        {
+          "name": "redminedb",
+          "user": "redmineuser",
+          "password": "vvm8i-UzqCLFP34NRSs7vQ"
+        }
+      ]
+    }
+  },
+  "run_list": [
+    "recipe[riyic::default]",
+    "recipe[dbs_mysql::server]",
+    "recipe[dbs_mysql::create_db]"
+  ]
+}
