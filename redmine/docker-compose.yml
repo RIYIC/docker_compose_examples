@@ -1,6 +1,7 @@
 dbdata:
   build: ./db
-  #command: echo "hola"
+  # fundamental para que non se arranque 2 veces o mysql
+  command: echo "hola"
 
 db:
   image: redmine_dbdata
@@ -17,5 +18,3 @@ app:
     - db:db.local
   ports:
     - "80:80"
-  volumes_from:
-    - appdata
