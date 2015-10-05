@@ -1,0 +1,6 @@
+testapp:
+  build: ./testapp
+  environment: {}
+  links: []
+  ports:
+    - "25565:25565"
