@@ -1,0 +1,55 @@
+# Volumes
+mysql-data:
+  image: busybox
+  volumes:
+    - "/var/lib/mysql"
+
+redis-data:
+  image: busybox
+  volumes:
+    - "/var/lib/redis/data"
+
+db:
+  image: mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=myrootpassword
+  volumes:
+    - mysql-data:/var/lib/mysql
+
+web:
+  build: web/
+  working_dir: "/home/panel-v2"
+  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  environment:
+    - DATABASE_PASSWORD=myrootpassword
+    - GPAC_API_URL=http://pa-pre.cloudapp.net:5000
+    - DEMO_MODE=false
+    - ALLOW_REGISTER=true
+    - JOB_WORKER_URL=redis://redis:6379/0
+  volumes:
+    - .:/web
+  ports:
+    - "3001:3000"
+  links:
+    - db
+    - redis
+
+redis:
+  image: redis:3.0.5
+  ports:
+    - '6379:6379'
+  volumes:
+    - redis-data:/var/lib/redis/data
+
+sidekiq:
+  build: web/
+  environment:
+    - JOB_WORKER_URL=redis://redis:6379/0
+  command: bundle exec sidekiq -q mailers -q default
+  links:
+    - redis
+    - db
+  volumes:
+    - .:/web
+
+
